@@ -1,0 +1,125 @@
+PRUEBA 1 Prueba Planificación Corto Plazo
+
+Iniciar los módulos.
+    Parámetros del Kernel   
+        archivo_pseudocodigo: PLANI_CORTO_PLAZO
+        tamanio_proceso: 0
+Definir el algoritmo de corto plazo a FIFO con dos CPU. Cuando se están ejecutando los procesos infinitos levantar un segundo IO Disco. Luego de verificar que se estén usando los dos IO, matar ambos.
+Cambiar el algoritmo de corto plazo a SJF con un solo CPU y volver a ejecutar. Una vez que queden los procesos infinitos matar la IO Disco.
+Cambiar el algoritmo de corto plazo a SRT con un solo CPU y volver a ejecutar. Una vez que queden los procesos infinitos matar la IO Disco.
+
+./bin/memoria ./MEMORIA_CP.config
+./bin/kernel ./KERNEL_CP_FIFO.config PLANI_CORTO_PLAZO 0
+./bin/cpu ./CPU_CP.config CPU1
+./bin/cpu ./CPU_CP.config CPU2
+./bin/io ./io.config DISCO
+./bin/io ./io.config DISCO
+
+./bin/memoria ./MEMORIA_CP.config
+./bin/kernel ./KERNEL_CP_SJF.config PLANI_CORTO_PLAZO 0
+./bin/cpu ./CPU_CP.config CPU1
+./bin/io ./io.config DISCO
+
+./bin/memoria ./MEMORIA_CP.config
+./bin/kernel ./KERNEL_CP_SRT.config PLANI_CORTO_PLAZO 0
+./bin/cpu ./CPU_CP.config CPU1
+./bin/io ./io.config DISCO
+
+// ---------------------------------------------------------------------------
+
+PRUEBA 2 Prueba Planificación Mediano/Largo Plazo
+Iniciar los módulos.
+    Parámetros del Kernel
+        archivo_pseudocodigo: PLANI_LYM_PLAZO
+        tamanio_proceso: 0
+Esperar la finalización de los mismos con normalidad.
+Cambiar el algoritmo de ingreso a ready a PMCP y volver a ejecutar.
+
+./bin/memoria ./MEMORIA_MP.config
+./bin/kernel ./KERNEL_MP_FIFO.config PLANI_LYM_PLAZO 0
+./bin/cpu ./CPU_MP.config CPU1
+./bin/io ./io.config DISCO
+
+./bin/memoria ./MEMORIA_MP.config
+./bin/kernel ./KERNEL_MP_PMCP.config PLANI_LYM_PLAZO 0
+./bin/cpu ./CPU_MP.config CPU1
+./bin/io ./io.config DISCO
+
+// ---------------------------------------------------------------------------
+
+PRUEBA 3 Prueba Memoria SWAP
+Iniciar los módulos.
+    Parámetros del Kernel:
+        archivo_pseudocodigo: MEMORIA_IO
+        tamanio_proceso: 90
+Esperar a que el proceso finalice.
+
+./bin/memoria ./MEMORIA_SWAP.config
+./bin/kernel ./KERNEL_SWAP.config MEMORIA_IO 90
+./bin/cpu ./CPU_SWAP.config CPU1
+./bin/io ./io.config DISCO
+
+
+// ---------------------------------------------------------------------------
+
+PRUEBA 3 Prueba Memoria - Caché
+Iniciar los módulos.
+    Parámetros del Kernel:
+        archivo_pseudocodigo: MEMORIA_BASE
+        tamanio_proceso: 256
+Esperar a que el proceso finalice.
+Cambiar el algoritmo de reemplazo de caché a CLOCK-M y volver a lanzar la prueba
+Esperar que el proceso finalice..
+
+
+./bin/memoria ./MEMORIA_CACHE.config
+./bin/kernel ./KERNEL_CACHE.config MEMORIA_BASE 256
+./bin/cpu ./CPU_CACHE_CLOCK.config CPU1
+./bin/io ./io.config DISCO
+
+./bin/memoria ./MEMORIA_CACHE.config
+./bin/kernel ./KERNEL_CACHE.config MEMORIA_BASE 256
+./bin/cpu ./CPU_CACHE_CLOCKM.config CPU1
+./bin/io ./io.config DISCO
+
+// ---------------------------------------------------------------------------
+
+PRUEBA 4 Prueba Memoria - TLB
+
+Iniciar los módulos.
+    Parámetros del Kernel:
+        archivo_pseudocodigo: MEMORIA_BASE_TLB
+        tamanio_proceso: 256
+Esperar a que el proceso finalice.
+Cambiar el algoritmo de reemplazo de TLB a LRU y volver a lanzar la prueba
+Esperar que el proceso finalice.
+
+./bin/memoria ./MEMORIA_TLB.config
+./bin/kernel ./KERNEL_TLB.config MEMORIA_BASE_TLB 256
+./bin/cpu ./CPU_TLB_FIFO.config CPU1
+./bin/io ./io.config DISCO
+
+./bin/memoria ./MEMORIA_TLB.config
+./bin/kernel ./KERNEL_TLB.config MEMORIA_BASE_TLB 256
+./bin/cpu ./CPU_TLB_LRU.config CPU1
+./bin/io ./io.config DISCO
+
+// ---------------------------------------------------------------------------
+
+PRUEBA 5 Prueba Estabilidad General
+Iniciar los módulos.
+    Parámetros del Kernel:
+        archivo_pseudocodigo: ESTABILIDAD_GENERAL
+        tamanio_proceso: 0
+Dejar correr todo por un buen tiempo
+
+./bin/memoria ./MEMORIA_ESTABILIDAD.config
+./bin/kernel ./KERNEL_ESTABILIDAD.config ESTABILIDAD_GENERAL 0
+./bin/cpu ./CPU_ESTABILIDAD_1.config CPU1
+./bin/cpu ./CPU_ESTABILIDAD_2.config CPU2
+./bin/cpu ./CPU_ESTABILIDAD_3.config CPU3
+./bin/cpu ./CPU_ESTABILIDAD_4.config CPU4
+./bin/io ./io.config DISCO
+./bin/io ./io.config DISCO
+./bin/io ./io.config DISCO
+./bin/io ./io.config DISCO
